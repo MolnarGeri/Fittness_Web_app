@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="assets/favicon-32x32.png" type="image/png">
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <title>Szerveroldali | HealthMap</title>
+  </head>
+  <body>
+    <header id="home">
+      <nav>
+        <div class="nav__bar">
+          <div class="nav__logo"><a href="#">HealthMap</a></div>
+          <ul class="nav__links">
+            <li class="link"><a href="#home">Főoldal</a></li>
+            <li class="link"><a href="#about">Rólunk Us</a></li>
+            <li class="link"><a href="#discover">Szolgáltatások</a></li>
+            <li class="link"><a href="#blog">Extra</a></li>
+            <li class="link"><a href="#journals">Vélemények</a></li>
+            <li class="link"><a href="#gallery">Galéria</a></li>
+            <li class="link"><a href="#contact">Kapcsolat</a></li>
+            <li class="link"><a href="login.php">Bejelentkezés</a></li>
+            <li class="link search">
+              <span><i class='bx bxs-face'></i></span>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="section__container header__container">
+        <h1>Haladj a célod felé! Valósítsd meg az álmaidat!</h1>
+        <h4>Fedezd fel a benned rejlő erőt</h4>
+        <button class="btn">
+          <a href="login.php">Csatlakozz most <i class="ri-arrow-right-line"></i></a>
+        </button>
+      </div>
+    </header>
+
+    <section class="about" id="about">
+      <div class="section__container about__container">
+        <div class="about__content">
+          <h2 class="section__header">Rólunk</h2>
+          <p class="section__subheader">
+            Küldetésünk, hogy hozzásegítsünk álmaid testének eléréséhez, 
+            és megmutassuk, hogy ez könnyebb, mint gondolnád! 
+            Személyre szabottan felmérjük és kiértékeljük egészségi állapotodat, 
+            hogy a legmegfelelőbb edzéstervet és táplálkozási tervet kínálhassuk Neked. 
+            Garantáljuk, hogy a diétád során is energikusnak és vitálisnak érezd magad, miközben 
+            folyamatosan közelebb kerülsz céljaidhoz. Gondoskodunk arról, hogy minden edzés 
+            kihívásokkal teli, lendületes és motiváló legyen, a tested határait tiszteletben tartva. 
+            Csatlakozz hozzánk, és kezdd el az utazást, amely teljesen új dimenzióba helyezi a fitness 
+            és a fejlődésed művészetét.
+          </p>
+          <div class="about__flex">
+            <div class="about__card">
+              <h4>10+</h4>
+              <p>Év tapasztalat</p>
+            </div>
+            <div class="about__card">
+              <h4>5000+</h4>
+              <p>Megírt étrend+edzésterv</p>
+            </div>
+            <div class="about__card">
+              <h4>5000+</h4>
+              <p>Elégedett sportoló</p>
+            </div>
+          </div>
+          <button class="btn">
+           <a href="login.php">Csatlakozom <i class="ri-arrow-right-line"></i></a> 
+          </button>
+        </div>
+        <div class="about__image">
+          <img src="assets/aboutOne-3.jpg" alt="about" />
+        </div>
+      </div>
+    </section>
+
+    <section class="discover" id="discover">
+      <div class="section__container discover__container">
+        <h2 class="section__header">Fedezd fel szolgáltatásainkat!</h2>
+        <p class="section__subheader">
+          Első lépés megtétele a legnehezebb feladat, de mi segítünk benne!
+        </p>
+        <div class="discover__grid">
+          <div class="discover__card">
+            <div class="discover__image">
+              <img src="assets/discoverOne.jpg" alt="discover" />
+            </div>
+            <div class="discover__card__content">
+              <h4>Edzéstervek</h4>
+              <p>
+                Felmérjük egészségi állapotodat és az alapján összeállítjuk a számodra legmegfelelőbb edzéstervet!
+              </p>
+              <button class="discover__btn">
+                <a href="login.php">Érdekel <i class="ri-arrow-right-line"></i></a>
+              </button>
+            </div>
+          </div>
+          <div class="discover__card">
+            <div class="discover__image">
+              <img src="assets/discoverTwo.jpg" alt="discover" />
+            </div>
+            <div class="discover__card__content">
+              <h4>Étrendek</h4>
+              <p>
+                Az vagy amit megeszel! Egészséges test nem létezik egészséges táplálkozás nélkül. Segítünk a megfelelő táplálkozás kialakításában.
+              </p>
+              <button class="discover__btn">
+               <a href="login.php"> Érdekel <i class="ri-arrow-right-line"></i></a>
+              </button>
+            </div>
+          </div>
+          <div class="discover__card">
+            <div class="discover__image">
+              <img src="assets/discoverThree.jpg" alt="discover" />
+            </div>
+            <div class="discover__card__content">
+              <h4>Ideális testsúly</h4>
+              <p>
+                Állítsd be az álom testsúlyodat amit el szeretnél érni és mi végig vezetünk az ösvényen, hogy élvezni tudd életed legjobb formáját!
+              </p>
+              <button class="discover__btn">
+                <a href="login.php">Érdekel <i class="ri-arrow-right-line"></i></a> 
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="blogs" id="blog">
+      <div class="blogs__container">
+        <h2 class="section__header">Tudás hatalom</h2>
+        <p class="section__subheader">Mi megtanítunk, hogyan használd a nálunk megszerzett tudást a gyakorlatban</p>
+        <div class="blogs__grid">
+          <div class="blogs__card">
+            <img src="assets/blogOne.jpg" alt="blog" />
+            <div class="blogs__content">
+              Napi kalóriaszükséglet ereje a diétában és a hétköznapokban
+            </div>
+          </div>
+          <div class="blogs__card">
+            <img src="assets/blogTwo.jpg" alt="blog" />
+            <div class="blogs__content">
+              Megfelelő edzésmódszer megfelelően kivitelezve. 
+            </div>
+          </div>
+          <div class="blogs__card">
+            <img src="assets/blogThree.jpg" alt="blog" />
+            <div class="blogs__content">
+              Helyes táplálkozás, hogy elérd a kívánt eredményt.
+            </div>
+          </div>
+          <div class="blogs__card">
+            <img src="assets/blog-4.jpg" alt="blog" />
+            <div class="blogs__content">
+              Mentális akadályok leküzdése egyszerű módszerekkel.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="journals" id="journals">
+      <div class="section__container journals__container">
+        <h2 class="section__header">Rólunk mondták mások!</h2>
+        <p class="section__subheader">
+          Összegyűjtöttünk nektek olyan emberek véleményét akik elérték a céljaikat és használták az oldalt. 
+        </p>
+        <div class="journals__grid">
+          <div class="journals__card">
+            <img src="assets/goal-1.jpg" alt="journal" />
+            <div class="journals__content">
+              <div class="journals__author">
+                <img src="assets/turcsan.jpg" alt="author" />
+                <p>By Turcsán Patrik</p>
+              </div>
+              <h4>Sikeresen elértem a célom a nyári nyaralásra.</h4>
+              <div class="journals__footer">
+                <p>18 Jul 2024</p>
+                <span>
+                  <a href="https://www.facebook.com/patrik.turcsan.1" target="_blank"><i class="ri-share-fill"></i></a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="journals__card">
+            <img src="assets/goal-2.jpg" alt="journal" />
+            <div class="journals__content">
+              <div class="journals__author">
+                <img src="assets/gyuris.jpg" alt="author" />
+                <p>By Gyuris László</p>
+              </div>
+              <h4>Elképeztő átalakuláson mentem keresztül hála az applikációnak.</h4>
+              <div class="journals__footer">
+                <p>22 Apr 2024</p>
+                <span>
+                  <a href="https://www.linkedin.com/in/gyurislaszlo/" target="_blank"><i class="ri-share-fill"></i></a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="journals__card">
+            <img src="assets/goal-3.jpg" alt="journal" />
+            <div class="journals__content">
+              <div class="journals__author">
+                <img src="assets/csongor.jpg" alt="author" />
+                <p>By Veszprémi Csongor</p>
+              </div>
+              <h4>Pacek lett a summer body báttya. Gyere rám Fifa! </h4>
+              <div class="journals__footer">
+                <p>05 Sep 2024</p>
+                <span>
+                  <a href="https://www.facebook.com/csongor.veszpremi" target="_blank"><i class="ri-share-fill"></i></a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="journals__card">
+            <img src="assets/goal-4.jpg" alt="journal" />
+            <div class="journals__content">
+              <div class="journals__author">
+                <img src="assets/molnar.jpg" alt="author" />
+                <p>By Molnár Gergely</p>
+              </div>
+              <h4>Az volt a legjobb, hogy a munka is jobban ment tőle. Használjátok bátran!</h4>
+              <div class="journals__footer">
+                <p>14 Dec 2022</p>
+                <span>
+                  <a href="https://www.linkedin.com/in/molnargeri/" target="_blank"><i class="ri-share-fill"></i></a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="journals__card">
+            <img src="assets/goal-5.jpg" alt="journal" />
+            <div class="journals__content">
+              <div class="journals__author">
+                <img src="assets/mekkelek.jpg" alt="author" />
+                <p>By Mekk Elek</p>
+              </div>
+              <h4>Appnak köszönhetően felállhattam a Mr.Olympia színpadára!</h4>
+              <div class="journals__footer">
+                <p>10 Feb 2022</p>
+                <span>
+                  <a href="https://u-szeged.hu/" target="_blank"><i class="ri-share-fill"></i></a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="journals__card">
+            <img src="assets/goal-6.jpg" alt="journal" />
+            <div class="journals__content">
+              <div class="journals__author">
+                <img src="assets/kissjazmin.jpg" alt="author" />
+                <p>By Kiss Jázmin</p>
+              </div>
+              <h4>A határaimat feszegettem, mindenkinek csak ajánlani tudom!</h4>
+              <div class="journals__footer">
+                <p>20 Mar 2023</p>
+                <span>
+                  <a href="https://u-szeged.hu/" target="_blank"><i class="ri-share-fill"></i></a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="journals__btn">
+          <button class="btn">
+           <a href="login.php">Regisztrálok! <i class="ri-arrow-right-line"></i></a>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero">
+      <div class="section__container hero__container">
+        <p>HealthMap</p>
+      </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+      <div class="gallery__container">
+        <h2 class="section__header">Galéria</h2>
+        <p class="section__subheader">
+          Ők már elérték céljaikat, motiváld magad eredményeikkel.
+        </p>
+        <div class="gallery__grid">
+          <div class="gallery__card">
+            <img src="assets/galery-1.jpg" alt="gallery" />
+            <div class="gallery__content">
+              <h4>Fanni</h4>
+              <p>-14 kg</p>
+            </div>
+          </div>
+          <div class="gallery__card">
+            <img src="assets/galery-2.jpg" alt="gallery" />
+            <div class="gallery__content">
+              <h4>Zoli</h4>
+              <p>-9 kg</p>
+            </div>
+          </div>
+          <div class="gallery__card">
+            <img src="assets/galery-3.jpg" alt="gallery" />
+            <div class="gallery__content">
+              <h4>Melinda</h4>
+              <p>Lefutotta az Ultra maratont </p>
+            </div>
+          </div>
+          <div class="gallery__card">
+            <img src="assets/galery-4.jpg" alt="gallery" />
+            <div class="gallery__content">
+              <h4>Zsolti</h4>
+              <p>+6kg izom</p>
+            </div>
+          </div>
+          <div class="gallery__card">
+            <img src="assets/goal-5.jpg" alt="gallery" />
+            <div class="gallery__content">
+              <h4>Elek</h4>
+              <p>Felállt a Mr. Olympia színpadára</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="section__container contact__container">
+        <div class="contact__col">
+          <h4>Kapcsolat</h4>
+          <p>24 órán belül válaszolunk!</p>
+        </div>
+        <div class="contact__col">
+          <div class="contact__card">
+            <span><i class="ri-phone-line"></i></span>
+            <h4>Hívj minket</h4>
+            <h5>+36 30123456789</h5>
+          </div>
+        </div>
+        <div class="contact__col">
+          <div class="contact__card">
+            <span><i class="ri-mail-line"></i></span>
+            <h4>Keress e-mailben</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="footer">
+      <div class="section__container footer__container">
+        <h4>HealthMap</h4>
+        <div class="footer__socials">
+          <span>
+            <a href="#"><i class="ri-facebook-fill"></i></a>
+          </span>
+          <span>
+            <a href="#"><i class="ri-instagram-fill"></i></a>
+          </span>
+          <span>
+            <a href="#"><i class="ri-twitter-fill"></i></a>
+          </span>
+          <span>
+            <a href="#"><i class="ri-linkedin-fill"></i></a>
+          </span>
+        </div>
+        <p>
+          HealtMap. Ébreszd fel a benned szunnyadó óriást és használd az erőt ami már most rendelkezésedre áll!
+        </p>
+        <ul class="footer__nav">
+          <li class="footer__link"><a href="#home">Főoldal</a></li>
+          <li class="footer__link"><a href="#about">Rólunk</a></li>
+          <li class="footer__link"><a href="#discover">Szolgáltatosok</a></li>
+          <li class="footer__link"><a href="#blog">Extra</a></li>
+          <li class="footer__link"><a href="#journals">Vélemények</a></li>
+          <li class="footer__link"><a href="#gallery">Galéria</a></li>
+          <li class="footer__link"><a href="#contact">Kapcsolat</a></li>
+        </ul>
+      </div>
+      <div class="footer__bar">
+        Copyright © 2024 Szerveroldali programozás. Minden jog fenntartva.
+      </div>
+    </section>
+
+    <script src="main.js"></script>
+  </body>
+</html>

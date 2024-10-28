@@ -1,0 +1,8 @@
+1. Nyissátok meg a PHPMYADMIN-t xampp-on keresztül 
+2. A felső sorban menjetek rá az Importálásra 
+3. Importáljátok a _FitnessDATABASE_ fájlt ami ebben a mappában van
+4. Mentés 
+
+Innentől elm ti is hozzáfértek az adatbázishoz! 
+
+FONTOS! Az adatbázisban a jelszó még nincs hash-elve ami nem szabályos, de egyenlőre eddig jutottam. Valamint még apróbb módosításokat kell csinálni minden oldalon majd. 
