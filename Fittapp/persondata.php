@@ -236,6 +236,10 @@ if ($result) {
     <?php else: ?>
         <h1>Nincs találat a felhasználó profiljára.</h1>
     <?php endif; ?>
+
+<a href="fooddiary.php">
+            <button>Napló</button>
+</a>
 </body>
 </html>
 
