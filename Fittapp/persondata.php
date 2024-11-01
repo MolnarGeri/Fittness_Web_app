@@ -2,8 +2,8 @@
 session_start();
 
 // Ellenőrizd, hogy a felhasználó be van-e jelentkezve
-if (!isset($_SESSION['user_id'])) {
-    die("Nincs jogosultság a hozzáféréshez.");
+if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
+    die("Nincs jogosultság a hozzáféréshez. Kérjük, jelentkezzen be.");
 }
 
 $userId = $_SESSION['user_id'];
@@ -14,8 +14,12 @@ $username = "root";  // a saját felhasználóneved
 $password = "";      // a saját jelszavad
 $dbname = "fitnessdb";
 
-$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Adatbázis-kapcsolat hiba: " . $e->getMessage());
+}
 
 // Az űrlap értékeinek inicializálása
 $name = '';
@@ -83,16 +87,21 @@ if (isset($_POST['submit'])) {
     $days = $goalCalories / 500;
     $goalDate = date('Y-m-d', strtotime("+$days days"));
 
-    // SQL lekérdezés frissítése
-    $stmt = $conn->prepare("UPDATE persondatatbl SET name=?, birthdate=?, weight=?, height=?, gender=?, bodyfatpercentage=?, FFM=?, BMI=?, BMR=?, TDEE=?, weeklytraining=?, goalweight=?, goaldate=? WHERE user_id=?");
+    // Ellenőrzés, hogy létezik-e már rekord az adott user_id-vel
+    $checkStmt = $conn->prepare("SELECT * FROM persondatatbl WHERE user_id = ?");
+    $checkStmt->execute([$userId]);
+    $exists = $checkStmt->fetch(PDO::FETCH_ASSOC);
 
-    // Adatok frissítése az adatbázisban
-    $stmt->execute([$name, $birthdate, $weight, $height, $gender, $bodyFatPercentage, $FFM, $BMI, $BMR, $TDEE, $weeklyTraining, $goalWeight, $goalDate, $userId]);
-
-    if ($stmt) {
-        echo "<h1>Adatok sikeresen mentve!</h1>";
+    if ($exists) {
+        // Ha létezik rekord, akkor frissítjük
+        $stmt = $conn->prepare("UPDATE persondatatbl SET name=?, birthdate=?, weight=?, height=?, gender=?, bodyfatpercentage=?, FFM=?, BMI=?, BMR=?, TDEE=?, weeklytraining=?, goalweight=?, goaldate=? WHERE user_id=?");
+        $stmt->execute([$name, $birthdate, $weight, $height, $gender, $bodyFatPercentage, $FFM, $BMI, $BMR, $TDEE, $weeklyTraining, $goalWeight, $goalDate, $userId]);
+        echo "<h1>Adatok sikeresen frissítve!</h1>";
     } else {
-        echo "<h1>Hiba történt az adatok mentése közben.</h1>";
+        // Ha nem létezik rekord, akkor új rekordot hozunk létre
+        $stmt = $conn->prepare("INSERT INTO persondatatbl (user_id, name, birthdate, weight, height, gender, bodyfatpercentage, FFM, BMI, BMR, TDEE, weeklytraining, goalweight, goaldate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$userId, $name, $birthdate, $weight, $height, $gender, $bodyFatPercentage, $FFM, $BMI, $BMR, $TDEE, $weeklyTraining, $goalWeight, $goalDate]);
+        echo "<h1>Új adat sikeresen hozzáadva!</h1>";
     }
 }
 
@@ -119,8 +128,12 @@ if ($result) {
     $BMR = $result['BMR'];
     $TDEE = $result['TDEE'];
     $goalDate = $result['goaldate'];
+} else {
+    echo "<h1>Nincs találat a felhasználó profiljára. Kérjük, töltse ki az adatokat!</h1>";
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="hu">
@@ -233,13 +246,11 @@ if ($result) {
                 <td><?= htmlspecialchars($goalDate) ?></td>
             </tr>
         </table>
+
+        <a href="fooddiary.php"><button>Napló</button></a>
     <?php else: ?>
         <h1>Nincs találat a felhasználó profiljára.</h1>
     <?php endif; ?>
-
-<a href="fooddiary.php">
-            <button>Napló</button>
-</a>
 </body>
 </html>
 
