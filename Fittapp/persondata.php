@@ -4,6 +4,13 @@ session_start();
 // Ellenőrizd, hogy a felhasználó be van-e jelentkezve
 if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
     die("Nincs jogosultság a hozzáféréshez. Kérjük, jelentkezzen be.");
+    //ha nincs bejelentkezve akkor a login oldalra irányítja 
+    header('location:login.php');
+    die("Nincs jogosultság a hozzáféréshez. Kérjük, jelentkezzen be.");
+}
+//ha admin jogosultsága van akkor az admin oldalra küldi
+if($_SESSION['is_admin']==1){
+    header('location:admin.php');
 }
 
 $userId = $_SESSION['user_id'];
@@ -248,6 +255,8 @@ if ($result) {
         </table>
 
         <a href="fooddiary.php"><button>Napló</button></a>
+        <!--kijelentkezés-->
+        <p><a href="logout.php?logout">Kijelentkezés</a></p>
     <?php else: ?>
         <h1>Nincs találat a felhasználó profiljára.</h1>
     <?php endif; ?>
