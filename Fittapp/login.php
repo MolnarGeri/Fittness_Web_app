@@ -16,7 +16,7 @@ try {
             if (empty($_POST['username']) || empty($_POST['password'])) {
                 $message = '<label>All fields are required</label>';
             } else {
-                $stmt = $connDB->prepare("SELECT id, username, password FROM user WHERE username = :username");
+                $stmt = $connDB->prepare("SELECT id, username, is_admin, password FROM user WHERE username = :username");
                 $stmt->execute([':username' => $_POST['username']]);
                 $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 
@@ -24,7 +24,13 @@ try {
                 if ($user && $_POST['password'] === $user['password']) {
                     $_SESSION["user_id"] = $user["id"];
                     $_SESSION["username"] = $user["username"];
+                    $_SESSION["is_admin"]=$user["is_admin"];
+                   if($_SESSION["is_admin"]==0){
                     header("location: persondata.php");
+                    }else{
+                        header("location: admin.php");
+                    }
+                   
                     exit();
                 } else {
                     $message = '<label>Invalid username or password</label>';
