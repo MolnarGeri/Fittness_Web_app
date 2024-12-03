@@ -1,0 +1,210 @@
+:root {
+    --primary-color: rgba(0, 0, 0, 0.5);
+    --primary-color-light: rgba(0, 0, 0, 0.5);
+    --secondary-color: #f49e09;
+    --extra-light: rgba(0, 0, 0, 0.5);
+    --white: #ffffff;
+    --max-width: 2500px;
+    --header-font: "Lisu Bosa", serif;
+  }
+  body {
+    font-family: Arial, sans-serif;
+    background-image: url(assets/gym.jpg);
+    background-repeat: no-repeat; /* Kikapcsolja az ismétlődést */
+    background-position: center;
+    color: var(--white);
+    margin: 0;
+    padding: 0;
+}
+a{
+    color: #ffffff;
+    
+}
+a:hover{
+    color: #f49e09;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--primary-color-light);
+    color: var(--white);
+    margin-top: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--primary-color);
+  }
+  header{
+    margin-bottom: 20px;
+  }
+  table th,
+  table td {
+    padding: 10px 15px;
+    text-align: center;
+    border-bottom: 1px solid var(--primary-color);
+  }
+  
+  table th {
+    background-color: var(--secondary-color);
+    color: var(--primary-color-light);
+    font-weight: bold;
+  }
+  
+  table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  table tr:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  nav {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid var(--extra-light);
+  }
+  .urlap {
+    width: 70%;
+    margin: 0 auto;
+    padding: 15px;
+    background-color: var(--primary-color-light);
+    border: 1px solid var(--primary-color);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+  }
+  
+  .urlap h2 {
+    color: var(--secondary-color); 
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: var(--header-font);
+  }
+  
+  .urlap label {
+    color: var(--white);
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  .urlap h1, p{
+    color: #f49e09;
+  }
+  .szoveg{
+    color: #f49e09;
+  }
+  
+  .urlap input[type="text"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 8px 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    background-color: var(--extra-light);
+    color: var(--primary-color);
+  }
+  
+  .urlap button {
+    padding: 8px 15px;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .urlap button:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+  }
+  
+  .nav__bar {
+    max-width: var(--max-width);
+    margin: auto;
+    padding: 1.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  
+  .nav__logo a {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+  
+  .nav__links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .link a {
+    padding: 1.5rem 5px;
+    font-weight: 500;
+    color: var(--white);
+    transition: 0.3s;
+  }
+  
+  .link a:hover {
+    color: var(--secondary-color);
+    border-bottom: 2px solid var(--secondary-color);
+  }
+
+  .megjelenites table {
+    width: 70%; 
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: var(--primary-color-light);
+    color: var(--white);
+    margin-top: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--primary-color);
+  }
+  
+  .megjelenites table th,
+  .megjelenites table td {
+    padding: 10px 15px; 
+    text-align: center; 
+    border-bottom: 1px solid var(--primary-color);
+  }
+  
+  .megjelenites table th {
+    background-color: var(--secondary-color); 
+    color: var(--primary-color-light); 
+    font-weight: bold; 
+  }
+  
+  .megjelenites table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.1); 
+  }
+  
+.megjelenites table tr:hover {
+    background-color: rgba(255, 255, 255, 0.2); 
+}
+@media screen and (max-width: 480px) {
+    body {
+      font-size: 14px;
+    }
+  
+    .container {
+      padding: 8px;
+    }
+  
+    table {
+      font-size: 12px;
+    }
+  
+    .urlap input[type="text"],
+    .urlap button,
+    .etkezesnaplo input[type="text"],
+    .etkezesnaplo button {
+      font-size: 14px;
+    }
+  
+    .etkezesnaplo h1 {
+      font-size: 1.5em;
+    }
+  
+    .etkezesnaplo p {
+      font-size: 1em;
+    }
+  }       
