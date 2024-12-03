@@ -285,13 +285,11 @@ if ($result) {
           HealtMap. Ébreszd fel a benned szunnyadó óriást és használd az erőt ami már most rendelkezésedre áll!
         </p>
         <ul class="footer__nav">
-          <li class="footer__link"><a href="#home">Főoldal</a></li>
-          <li class="footer__link"><a href="#about">Rólunk</a></li>
-          <li class="footer__link"><a href="#discover">Szolgáltatosok</a></li>
-          <li class="footer__link"><a href="#blog">Extra</a></li>
-          <li class="footer__link"><a href="#journals">Vélemények</a></li>
-          <li class="footer__link"><a href="#gallery">Galéria</a></li>
-          <li class="footer__link"><a href="#contact">Kapcsolat</a></li>
+                <li class="link"><a href="start.php">Főoldal</a></li>
+                <li class="link"><a href="start.php">Adatlapom</a></li>
+                <li class="link"><a href="fooddiary.php">Étkezésnapló</a></li>
+                <li class="link"><a href="trainingdiary.php">Edzésnapló</a></li>
+                <li class="link"><a href="logout.php">Kijelentkezés</a></li>
         </ul>
       </div>
       <div class="footer__bar">
