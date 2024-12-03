@@ -46,6 +46,13 @@
   cursor: pointer;
 }
 
+a{
+  color:#fff;
+}
+a:hover{
+  color:#0a0d14;
+}
+
 img {
   width: 100%;
   display: flex;
@@ -260,6 +267,11 @@ nav {
   background-color: transparent;
   border: 1px solid var(--white);
   cursor: pointer;
+}
+
+.discover__btn:hover{
+  background-color: #f49e09;
+  color:#0a0d14;
 }
 
 .blogs__container {
