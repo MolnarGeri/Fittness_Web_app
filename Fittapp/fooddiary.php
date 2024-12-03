@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Ellenőrizd, hogy a felhasználó be van-e jelentkezve
+
 if (!isset($_SESSION['user_id'])) {
     die("Nincs jogosultság a hozzáféréshez.");
 }
@@ -21,7 +21,7 @@ try {
     die("Adatbázis kapcsolódási hiba: " . $e->getMessage());
 }
 
-// TDEE, goalweight és weight lekérdezése a felhasználóhoz
+
 $stmt = $pdo->prepare("SELECT TDEE, goalweight, weight FROM persondatatbl WHERE user_id = :user_id");
 $stmt->execute(['user_id' => $userId]);
 $userData = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -32,7 +32,7 @@ if ($userData) {
     $goalWeight = $userData['goalweight'];
     $weight = $userData['weight'];
 
-    // Napi kalóriaszükséglet kiszámítása
+   
     if ($goalWeight < $weight) {
         $daily = $TDEE - 500;
     } elseif ($goalWeight > $weight) {
@@ -42,17 +42,21 @@ if ($userData) {
     }
 }
 
-// Ellenőrizd a már elfogyasztott kalóriákat
+
 $date = date('Y-m-d');
 $caloriesStmt = $pdo->prepare("SELECT SUM(calories) as totalEaten FROM mealtbl WHERE user_id = :user_id AND date = :date");
 $caloriesStmt->execute(['user_id' => $userId, 'date' => $date]);
 $caloriesData = $caloriesStmt->fetch(PDO::FETCH_ASSOC);
 $totalEaten = $caloriesData['totalEaten'] ?? 0;
 
-// Frissítsd a napi kalóriakeretet a már elfogyasztottak alapján
+
 $daily -= $totalEaten;
 
-// Étel keresése és kiválasztás kezelése
+
+$burnedCalories = $_SESSION['daily_calories_burned'] ?? 0; 
+$daily += $burnedCalories; 
+
+
 $foods = [];
 $selectedFood = null;
 $eatedCalories = $eatedCarb = $eatedProtein = $eatedFat = $gram = 0;
@@ -77,13 +81,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!empty($_POST['selected_food'])) {
             $foodData = json_decode($_POST['selected_food'], true);
 
-            // Kalóriák kiszámítása
+            
             $eatedCalories = ($_POST['eated_calories'] ?? 0);
             $eatedCarb = ($_POST['eated_carb'] ?? 0);
             $eatedProtein = ($_POST['eated_protein'] ?? 0);
             $eatedFat = ($_POST['eated_fat'] ?? 0);
 
-            // Adatok mentése a mealtbl táblába
+            
             $saveStmt = $pdo->prepare("INSERT INTO mealtbl (user_id, date, food, calories, carb, protein, fat) VALUES (:user_id, :date, :food, :calories, :carb, :protein, :fat)");
             $saveStmt->execute([
                 'user_id' => $userId,
@@ -95,23 +99,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'fat' => $eatedFat
             ]);
 
-            // Napi kalória frissítése
+            
             $daily -= $eatedCalories;
-            $mealSaved = true; // Beállítjuk, hogy az étkezés mentve lett
-            $selectedFood = null; // Reset selected food
+            $mealSaved = true; 
+            $selectedFood = null; 
         } else {
             echo "Hiba: Nincs kiválasztott étel";
         }
     }
 }
 
-// Elfogyasztott ételek listázása
+
 $eatenMealsList = [];
 $listStmt = $pdo->prepare("SELECT id, date, food, calories, carb, protein, fat FROM mealtbl WHERE user_id = :user_id ORDER BY date DESC");
 $listStmt->execute(['user_id' => $userId]);
 $eatenMealsList = $listStmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Elfogyasztott étel törlése
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_meal'])) {
     $mealId = $_POST['delete_meal'];
     $deleteStmt = $pdo->prepare("DELETE FROM mealtbl WHERE id = :id");
@@ -128,6 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_meal'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href=fooddiarystyle.css>
+    <link rel="icon" href="assets/favicon-32x32.png" type="image/png">
     <title>Étkezésnapló</title>
     <style>
         table {
@@ -148,18 +153,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_meal'])) {
     </style>
 </head>
 <body>
+<header id="home">
+      <nav>
+        <div class="nav__bar">
+          <div class="nav__logo"><a href="#">HealthMap</a></div>
+          <ul class="nav__links">
+                <li class="link"><a href="start.php">Főoldal</a></li>
+                <li class="link"><a href="persondata.php">Adatlapom</a></li>
+                <li class="link"><a href="fooddiary.php">Étkezésnapló</a></li>
+                <li class="link"><a href="trainingdiary.php">Edzésnapló</a></li>
+                <li class="link"><a href="logout.php">Kijelentkezés</a></li>
+                <li class="link search">
+            <li class="link search">
+              <span><i class='bx bxs-face'></i></span>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
     <div class= "etkezesnaplo">
     <h1>Étkezésnapló</h1>
     <p>Ma még ennyit ehetsz: <strong><?= $daily ?> kcal</strong></p>
 
-    <!-- Étel kereső űrlap -->
+    
     <form method="POST">
         <label>Mit ettél?</label>
         <input type="text" name="food_search">
         <button type="submit">Keresés</button>
     </form>
     </div>
-    <!-- Keresési találatok megjelenítése -->
+    
      <div class = "megjelenites">
     <?php if (!empty($foods)): ?>
         <table border="1" id="food_table">
@@ -183,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_meal'])) {
     <?php endif; ?>
             </div>
 
-    <!-- Kiválasztott étel adatok és számítási mező -->
+    
      <div class = "szamitas">
     <form method="POST" id="food_form" style="<?= $selectedFood ? '' : 'display:none;' ?>">
         <input type="hidden" name="selected_food" id="selected_food" value="<?= htmlspecialchars(json_encode($selectedFood)) ?>">
@@ -198,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_meal'])) {
         <button type="submit" name="eat_button">Megettem</button>
     </form>
             </div>
-    <!-- Kiszámolt értékek táblázata -->
+    
     <div class = "ertekek">
     <?php if ($eatedCalories > 0 && !$mealSaved): ?>  
         <h2>Kiszámolt értékek:</h2>
@@ -221,7 +244,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_meal'])) {
     <?php endif; ?>
     </div>
 
-    <!-- Elfogyasztott ételek táblázat -->
+    
     <div class = "urlap">
     <h2>Elfogyasztott ételek:</h2>
     <table>
@@ -264,11 +287,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_meal'])) {
             document.getElementById('selected_food').value = JSON.stringify(foodData);
             document.getElementById('food_form').style.display = 'block';
             
-            // Megjelenítjük csak a kiválasztott sort és a fejlécet
+            
             const rows = document.querySelectorAll('#food_table tr.food_row');
             rows.forEach(row => row.classList.add('hidden'));
 
-            // Kiválasztott sor megjelenítése
+            
             const selectedRow = Array.from(rows).find(row => 
                 row.cells[0].innerText === foodData.mealname
             );
@@ -276,12 +299,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_meal'])) {
                 selectedRow.classList.remove('hidden');
             }
 
-            // Fejlécet mindig láthatóvá tesszük
+           
             const header = document.querySelector('#food_table tr:first-child');
             header.classList.remove('hidden');
         }
 
-        // Alert üzenet megjelenítése, ha a napi limit kisebb mint 0
+        
         <?php if ($daily < 0): ?>
             alert("Tájékoztatni szeretnénk, hogy elérted a napi limitedet, amit az alapján állítottunk be neked, hogy leghamarabb elérhesd a kitűzött célodat! Természetesen nincs gond ha átléped a kitűzött limitet, csak a program így nem lesz a leghatékonyabb.");
         <?php endif; ?>
