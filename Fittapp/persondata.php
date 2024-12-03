@@ -1,24 +1,24 @@
 <?php
 session_start();
 
-// Ellenőrizd, hogy a felhasználó be van-e jelentkezve
+
 if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
     die("Nincs jogosultság a hozzáféréshez. Kérjük, jelentkezzen be.");
-    //ha nincs bejelentkezve akkor a login oldalra irányítja 
+   
     header('location:login.php');
     die("Nincs jogosultság a hozzáféréshez. Kérjük, jelentkezzen be.");
 }
-//ha admin jogosultsága van akkor az admin oldalra küldi
+
 if($_SESSION['is_admin']==1){
     header('location:admin.php');
 }
 
 $userId = $_SESSION['user_id'];
 
-// Adatbázis kapcsolat
+
 $servername = "localhost";
-$username = "root";  // a saját felhasználóneved
-$password = "";      // a saját jelszavad
+$username = "root";  
+$password = "";      
 $dbname = "fitnessdb";
 
 try {
@@ -28,7 +28,7 @@ try {
     die("Adatbázis-kapcsolat hiba: " . $e->getMessage());
 }
 
-// Az űrlap értékeinek inicializálása
+
 $name = '';
 $birthdate = '';
 $weight = '';
@@ -43,37 +43,37 @@ $BMR = '';
 $TDEE = '';
 $goalDate = '';
 
-// Beküldés ellenőrzése
+
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $birthdate = $_POST['birthdate'];
     $weight = (double)$_POST['weight'];
     $height = (double)$_POST['height'];
-    $gender = (int)$_POST['gender'];  // 0 vagy 1
+    $gender = (int)$_POST['gender'];  
     $weeklyTraining = $_POST['weekly_training'];
     $goalWeight = (double)$_POST['goal_weight'];
 
-    // Kor kiszámítása
+    
     $age = date_diff(date_create($birthdate), date_create('now'))->y;
 
-    // BMI kiszámítása
+    
     $heightInMeters = $height / 100;
     $BMI = $weight / ($heightInMeters * $heightInMeters);
 
-    // Testzsírszázalék kiszámítása
-    if ($gender == 0) { // Férfi
+    
+    if ($gender == 0) { 
         $bodyFatPercentage = (1.20 * $BMI) + (0.23 * $age) - 16.2;
-    } else { // Nő
+    } else { 
         $bodyFatPercentage = (1.20 * $BMI) + (0.23 * $age) - 5.4;
     }
 
-    // Sovány testtömeg (FFM)
+    
     $FFM = (1 - ($bodyFatPercentage / 100)) * $weight;
 
-    // Alapanyagcsere (BMR)
+   
     $BMR = 370 + (21.6 * $FFM);
 
-    // Napi energiaszükséglet (TDEE)
+    
     switch ($weeklyTraining) {
         case "1-3 óra/hét":
             $TDEE = $BMR * 1.2;
@@ -85,41 +85,41 @@ if (isset($_POST['submit'])) {
             $TDEE = $BMR * 1.5;
             break;
         default:
-            $TDEE = $BMR; // Alapértelmezett
+            $TDEE = $BMR; 
     }
 
-    // Célsúly elérése
+    
     $goal = abs($goalWeight - $weight);
     $goalCalories = $goal * 7700;
     $days = $goalCalories / 500;
     $goalDate = date('Y-m-d', strtotime("+$days days"));
 
-    // Ellenőrzés, hogy létezik-e már rekord az adott user_id-vel
+   
     $checkStmt = $conn->prepare("SELECT * FROM persondatatbl WHERE user_id = ?");
     $checkStmt->execute([$userId]);
     $exists = $checkStmt->fetch(PDO::FETCH_ASSOC);
 
     if ($exists) {
-        // Ha létezik rekord, akkor frissítjük
+       
         $stmt = $conn->prepare("UPDATE persondatatbl SET name=?, birthdate=?, weight=?, height=?, gender=?, bodyfatpercentage=?, FFM=?, BMI=?, BMR=?, TDEE=?, weeklytraining=?, goalweight=?, goaldate=? WHERE user_id=?");
         $stmt->execute([$name, $birthdate, $weight, $height, $gender, $bodyFatPercentage, $FFM, $BMI, $BMR, $TDEE, $weeklyTraining, $goalWeight, $goalDate, $userId]);
         echo "<h1>Adatok sikeresen frissítve!</h1>";
     } else {
-        // Ha nem létezik rekord, akkor új rekordot hozunk létre
+        
         $stmt = $conn->prepare("INSERT INTO persondatatbl (user_id, name, birthdate, weight, height, gender, bodyfatpercentage, FFM, BMI, BMR, TDEE, weeklytraining, goalweight, goaldate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([$userId, $name, $birthdate, $weight, $height, $gender, $bodyFatPercentage, $FFM, $BMI, $BMR, $TDEE, $weeklyTraining, $goalWeight, $goalDate]);
         echo "<h1>Új adat sikeresen hozzáadva!</h1>";
     }
 }
 
-// Profil adatainak lekérdezése
+
 $stmt = $conn->prepare("SELECT * FROM persondatatbl WHERE user_id = ?");
 $stmt->execute([$userId]);
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Ellenőrzés
+
 if ($result) {
-    // Az űrlap értékeinek beállítása a lekérdezett adatokra
+   
     $name = $result['name'];
     $birthdate = $result['birthdate'];
     $weight = $result['weight'];
@@ -128,7 +128,7 @@ if ($result) {
     $weeklyTraining = $result['weeklytraining'];
     $goalWeight = $result['goalweight'];
 
-    // Számított adatok beállítása
+    
     $BMI = $result['BMI'];
     $bodyFatPercentage = $result['bodyfatpercentage'];
     $FFM = $result['FFM'];
@@ -146,6 +146,7 @@ if ($result) {
     <meta charset="UTF-8">
     <title>Adatlap kitöltése</title>
     <link rel="stylesheet" href="persondata.css">
+    <link rel="icon" href="assets/favicon-32x32.png" type="image/png">
 </head>
 <body>
 <header id="home">
@@ -159,9 +160,10 @@ if ($result) {
             </section>
         </div>
             <ul class="nav__links">
-                <li class="link"><a href="index.html">Főoldal</a></li>
-                <li class="link"><a href="index.html">Rólunk</a></li>
+                <li class="link"><a href="start.php">Főoldal</a></li>
+                <li class="link"><a href="start.php">Adatlapom</a></li>
                 <li class="link"><a href="fooddiary.php">Étkezésnapló</a></li>
+                <li class="link"><a href="trainingdiary.php">Edzésnapló</a></li>
                 <li class="link"><a href="logout.php">Kijelentkezés</a></li>
                 <li class="link search">
                     <span><i class='bx bxs-face'></i></span>
