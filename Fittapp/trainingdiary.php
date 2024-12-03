@@ -117,23 +117,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_training'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edzésnapló</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 15px 0;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-            text-align: left;
-        }
-        tr:hover {background-color: #f9f9f9;}
-        .hidden { display: none; }
-    </style>
+    <link rel="stylesheet" href="trainingdiary.css" />
+    <link rel="icon" href="assets/favicon-32x32.png" type="image/png">
 </head>
 <body>
     <header id="home">
@@ -154,18 +139,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_training'])) {
         </div>
       </nav>
     </header>
-
+    <div class="urlap">
     <h1>Edzésnapló</h1>
     <p>Ma elégetett kalóriák: <strong><?= $_SESSION['daily_calories_burned'] ?> kcal</strong></p>
 
-    <!-- Edzés kereső űrlap -->
+    
     <form method="POST">
-        <label>Milyen edzést végeztél?</label>
+        <label >Milyen edzést végeztél?</label>
         <input type="text" name="training_search">
         <button type="submit">Keresés</button>
     </form>
 
-    <!-- Keresési találatok -->
+    
     <?php if (!empty($trainings)): ?>
         <table border="1" id="training_table">
             <tr>
@@ -181,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_training'])) {
         </table>
     <?php endif; ?>
 
-    <!-- Kiválasztott edzés és kalória számítása -->
+    
     <form method="POST" id="training_form" style="<?= $selectedTraining ? '' : 'display:none;' ?>">
         <input type="hidden" name="selected_training" id="selected_training" value="<?= htmlspecialchars(json_encode($selectedTraining)) ?>">
         <input type="hidden" name="burned_calories" value="<?= $burnedCalories ?>">
@@ -192,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_training'])) {
         <button type="submit" name="train_button">Edzettem</button>
     </form>
 
-    <!-- Kiszámolt kalóriák -->
+    
     <?php if ($burnedCalories > 0 && !$trainingSaved): ?>
         <h2>Kiszámolt kalóriák:</h2>
         <table border="1">
@@ -209,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_training'])) {
         </table>
     <?php endif; ?>
 
-    <!-- Elvégzett edzések -->
+    
     <h2>Elvégzett edzések:</h2>
     <table>
         <tr>
@@ -240,7 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_training'])) {
             </tr>
         <?php endif; ?>
     </table>
-
+    </div>
     <script>
         function selectTraining(trainingData) {
             document.getElementById('selected_training').value = JSON.stringify(trainingData);
