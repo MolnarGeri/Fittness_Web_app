@@ -88,6 +88,7 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['submFood']) && !empty($pd
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="adminstyle.css" />
     <title>Document</title>
 </head>
 <body>
@@ -96,12 +97,11 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['submFood']) && !empty($pd
 if(!empty($error)){
     echo "<p class='error'>$error</p>";
 }
-
 ?>
 
 <h1>Admin site</h1>
 
-
+<div class="urlap">
 <h1>Edzés felvitele:</h1>
 
 <form action="<?= htmlspecialchars($_SERVER['PHP_SELF'])?>" method="post">
@@ -114,31 +114,27 @@ if(!empty($error)){
     <input type="submit" value="Mentés" name="submTraining">
 </fieldset>
 </form>
-
-
-
-
-<h1>Étel felvitel</h1>
-
+<h1>Étel felvitel:</h1>
 <form action="<?=htmlspecialchars(trim($_SERVER['PHP_SELF']))?>" method="post">
-    <fieldset> Étel felvitel
-        <label for="foodName">Név</label>
-        <input type="text" name="foodName" id="foodName">
-        <label for="foodCalories">Kalória</label>
-        <input type="number" step="0.01" name="foodCalories" id="foodCalories">
-        <label for="foodCarb">Carb</label>
-        <input type="number" step="0.01" name="foodCarb" id="foodCarb">
-        <label for="foodProtein">Protein</label>
-        <input type="number" step="0.01" name="foodProtein" id="foodProtein">
-        <label for="foodFat">Zsír</label>
-        <input type="number" step="0.01" name="foodFat" id="foodFat">
+    <fieldset> 
+        <label for="foodName" class="aa">Név</label>
+        <input type="text" name="foodName" class="text">
+        
+        <label for="foodCalories" class="aa">Kalória</label>
+        <input type="number" step="0.01" name="foodCalories" class="text">
+        
+        <label for="foodCarb" class="aa">Carb</label>
+        <input type="number" step="0.01" name="foodCarb" class="text">
+        
+        <label for="foodProtein" class="aa">Protein</label>
+        <input type="number" step="0.01" name="foodProtein" class="text">
+        
+        <label for="foodFat" class="aa">Zsír</label>
+        <input type="number" step="0.01" name="foodFat" class="text">
 
         <input type="submit" value="Mentés" name="submFood">
-
     </fieldset>
 </form>
-
-<p><a href="logout.php?logout">Kijelentkezés</a></p>
-    
+<p class="kozep"><a href="logout.php?logout">Kijelentkezés</a></p>
 </body>
 </html>
