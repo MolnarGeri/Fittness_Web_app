@@ -7,7 +7,7 @@ if(empty($_SESSION["username"]) ){
 }
 //ha nincs admin jogosultsága akkor a pofiljára küldi
 if($_SESSION["is_admin"]==0){
-    header("location: persondata.php");
+    header("location: start.php");
     die("Nincs jogosultság a hozzáféréshez.");
 }
 
@@ -54,6 +54,7 @@ if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submTraining']) && !empty
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="adminstyle.css">
     <title>Document</title>
 </head>
 <body>
@@ -81,7 +82,9 @@ if(!empty($error)){
 </fieldset>
 </form>
 
-<p><a href="logout.php?logout">Kijelentkezés</a></p>
+<div class="kijelentkezes-container">
+  <a href="logout.php?logout">Kijelentkezés</a>
+</div>
     
 </body>
 </html>
