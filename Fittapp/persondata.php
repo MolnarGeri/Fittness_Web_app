@@ -140,93 +140,101 @@ if ($result) {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
     <title>Adatlap kitöltése</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+    <link rel="stylesheet" href="persondata.css">
 </head>
 <body>
-    <h2>Adatlap kitöltése</h2>
-    <form method="POST" action="">
-        <label for="name">Név:</label>
-        <input type="text" id="name" name="name" value="<?= htmlspecialchars($name) ?>" required><br><br>
+<header id="home">
+    <nav>
+        <div class="nav__bar">
+            <div class="hero__container">
+            <section class="hero">
+            <div class="section__container hero__container">
+            <p class="logo">HealthMap</p>
+            </div>
+            </section>
+        </div>
+            <ul class="nav__links">
+                <li class="link"><a href="index.html">Főoldal</a></li>
+                <li class="link"><a href="index.html">Rólunk</a></li>
+                <li class="link"><a href="fooddiary.php">Étkezésnapló</a></li>
+                <li class="link"><a href="logout.php">Kijelentkezés</a></li>
+                <li class="link search">
+                    <span><i class='bx bxs-face'></i></span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+    <div class="adatlap">
+        <h2 class="colorcenter">Adatlap kitöltése</h2>
+        <form method="POST" action="">
+            <label for="name">Név:</label>
+            <input type="text" id="name" name="name" value="<?= htmlspecialchars($name) ?>" required><br><br>
 
-        <label for="birthdate">Születési dátum:</label>
-        <input type="date" id="birthdate" name="birthdate" value="<?= htmlspecialchars($birthdate) ?>" required><br><br>
+            <label for="birthdate">Születési dátum:</label>
+            <input type="date" id="birthdate" name="birthdate" value="<?= htmlspecialchars($birthdate) ?>" required><br><br>
 
-        <label for="weight">Súly (kg):</label>
-        <input type="number" id="weight" name="weight" value="<?= htmlspecialchars($weight) ?>" step="0.1" required><br><br>
+            <label for="weight">Súly (kg):</label>
+            <input type="number" id="weight" name="weight" value="<?= htmlspecialchars($weight) ?>" step="0.1" required><br><br>
 
-        <label for="height">Magasság (cm):</label>
-        <input type="number" id="height" name="height" value="<?= htmlspecialchars($height) ?>" step="0.1" required><br><br>
+            <label for="height">Magasság (cm):</label>
+            <input type="number" id="height" name="height" value="<?= htmlspecialchars($height) ?>" required><br><br>
 
-        <label for="gender">Nem:</label>
-        <select id="gender" name="gender" required>
-            <option value="0" <?= $gender == 0 ? 'selected' : '' ?>>Fiú</option>
-            <option value="1" <?= $gender == 1 ? 'selected' : '' ?>>Lány</option>
-        </select><br><br>
+            <label for="gender">Nem:</label>
+            <select id="gender" name="gender" required>
+                <option value="0" <?= $gender == 0 ? 'selected' : '' ?>>Férfi</option>
+                <option value="1" <?= $gender == 1 ? 'selected' : '' ?>>Nő</option>
+            </select><br><br>
 
-        <label for="weekly_training">Heti sportolási idő:</label>
-        <select id="weekly_training" name="weekly_training" required>
-            <option value="1-3 óra/hét" <?= $weeklyTraining == "1-3 óra/hét" ? 'selected' : '' ?>>1-3 óra/hét</option>
-            <option value="4-6 óra/hét" <?= $weeklyTraining == "4-6 óra/hét" ? 'selected' : '' ?>>4-6 óra/hét</option>
-            <option value="6+ óra/hét" <?= $weeklyTraining == "6+ óra/hét" ? 'selected' : '' ?>>6+ óra/hét</option>
-        </select><br><br>
+            <label for="weekly_training">Havi edzés:</label>
+            <select id="weekly_training" name="weekly_training" required>
+                <option value="0-1 óra/hét">0-1 óra/hét</option>
+                <option value="1-3 óra/hét" <?= $weeklyTraining == '1-3 óra/hét' ? 'selected' : '' ?>>1-3 óra/hét</option>
+                <option value="4-6 óra/hét" <?= $weeklyTraining == '4-6 óra/hét' ? 'selected' : '' ?>>4-6 óra/hét</option>
+                <option value="6+ óra/hét" <?= $weeklyTraining == '6+ óra/hét' ? 'selected' : '' ?>>6+ óra/hét</option>
+            </select><br><br>
 
-        <label for="goal_weight">Célsúly (kg):</label>
-        <input type="number" id="goal_weight" name="goal_weight" value="<?= htmlspecialchars($goalWeight) ?>" step="0.1" required><br><br>
+            <label for="goal_weight">Célsúly (kg):</label>
+            <input type="number" id="goal_weight" name="goal_weight" value="<?= htmlspecialchars($goalWeight) ?>" step="0.1" required><br><br>
 
-        <button type="submit" name="submit">Beküldés</button>
-    </form>
-
-    <?php if ($result): ?>
-        <h2>Felhasználói profil adatai:</h2>
+            <input type="submit" name="submit" value="Küldés">
+        </form>
+    </div>
+    <div class= adatlap>
+        <h2>Profil információk</h2>
         <table>
             <tr>
                 <th>Név</th>
-                <td><?= htmlspecialchars($result['name']) ?></td>
+                <td><?= htmlspecialchars($name) ?></td>
             </tr>
             <tr>
                 <th>Születési dátum</th>
-                <td><?= htmlspecialchars($result['birthdate']) ?></td>
+                <td><?= htmlspecialchars($birthdate) ?></td>
             </tr>
             <tr>
                 <th>Súly (kg)</th>
-                <td><?= htmlspecialchars($result['weight']) ?></td>
+                <td><?= htmlspecialchars($weight) ?></td>
             </tr>
             <tr>
                 <th>Magasság (cm)</th>
-                <td><?= htmlspecialchars($result['height']) ?></td>
+                <td><?= htmlspecialchars($height) ?></td>
             </tr>
             <tr>
                 <th>Nem</th>
-                <td><?= htmlspecialchars($result['gender']) == 0 ? 'Fiú' : 'Lány' ?></td>
+                <td><?= $gender == 0 ? 'Férfi' : 'Nő' ?></td>
             </tr>
             <tr>
-                <th>Heti sportolási idő</th>
-                <td><?= htmlspecialchars($result['weeklytraining']) ?></td>
+                <th>Havi edzés</th>
+                <td><?= htmlspecialchars($weeklyTraining) ?></td>
             </tr>
             <tr>
                 <th>Célsúly (kg)</th>
-                <td><?= htmlspecialchars($result['goalweight']) ?></td>
+                <td><?= htmlspecialchars($goalWeight) ?></td>
             </tr>
             <tr>
                 <th>BMI</th>
@@ -237,7 +245,7 @@ if ($result) {
                 <td><?= htmlspecialchars($bodyFatPercentage) ?></td>
             </tr>
             <tr>
-                <th>Sovány testtömeg (kg)</th>
+                <th>Sovány testtömeg (FFM)</th>
                 <td><?= htmlspecialchars($FFM) ?></td>
             </tr>
             <tr>
@@ -249,19 +257,44 @@ if ($result) {
                 <td><?= htmlspecialchars($TDEE) ?></td>
             </tr>
             <tr>
-                <th>Cél dátum</th>
+                <th>Cél dátuma</th>
                 <td><?= htmlspecialchars($goalDate) ?></td>
             </tr>
         </table>
-
-        <a href="fooddiary.php"><button>Napló</button></a>
-        <!--kijelentkezés-->
-        <p><a href="logout.php?logout">Kijelentkezés</a></p>
-    <?php else: ?>
-        <h1>Nincs találat a felhasználó profiljára.</h1>
-    <?php endif; ?>
+    </div>
+    <section class="footer">
+      <div class="section__container footer__container">
+        <h4>HealthMap</h4>
+        <div class="footer__socials">
+          <span>
+            <a href="#"><i class="ri-facebook-fill"></i></a>
+          </span>
+          <span>
+            <a href="#"><i class="ri-instagram-fill"></i></a>
+          </span>
+          <span>
+            <a href="#"><i class="ri-twitter-fill"></i></a>
+          </span>
+          <span>
+            <a href="#"><i class="ri-linkedin-fill"></i></a>
+          </span>
+        </div>
+        <p>
+          HealtMap. Ébreszd fel a benned szunnyadó óriást és használd az erőt ami már most rendelkezésedre áll!
+        </p>
+        <ul class="footer__nav">
+          <li class="footer__link"><a href="#home">Főoldal</a></li>
+          <li class="footer__link"><a href="#about">Rólunk</a></li>
+          <li class="footer__link"><a href="#discover">Szolgáltatosok</a></li>
+          <li class="footer__link"><a href="#blog">Extra</a></li>
+          <li class="footer__link"><a href="#journals">Vélemények</a></li>
+          <li class="footer__link"><a href="#gallery">Galéria</a></li>
+          <li class="footer__link"><a href="#contact">Kapcsolat</a></li>
+        </ul>
+      </div>
+      <div class="footer__bar">
+        Copyright © 2024 Szerveroldali programozás. Minden jog fenntartva.
+      </div>
+    </section>
 </body>
 </html>
-
-
-
