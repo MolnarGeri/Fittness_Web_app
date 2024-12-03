@@ -21,7 +21,7 @@ try {
                 $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 
                 // Jelszó ellenőrzése hashelés nélkül
-                if ($user &&  password_verify($_POST['password'],$user['password'])  /*$_POST['password'] === $user['password']*/) {
+                if ($user &&  password_verify($_POST['password'],$user['password'])) {
                     $_SESSION["user_id"] = $user["id"];
                     $_SESSION["username"] = $user["username"];
                     $_SESSION["is_admin"]=$user["is_admin"];
@@ -41,8 +41,7 @@ try {
         elseif (isset($_POST['userName'], $_POST['email'], $_POST['password'])) {
             $userName = $_POST['userName'];
             $email = $_POST['email'];
-            $passwordPlain = password_hash( $_POST['password'],PASSWORD_DEFAULT); // Jelszó mentése sima szövegként
-
+            $passwordPlain = password_hash( $_POST['password'],PASSWORD_DEFAULT); 
             $stmt = $connDB->prepare("INSERT INTO user (userName, email, password) VALUES (:userName, :email, :password)");
             $stmt->execute([':userName' => $userName, ':email' => $email, ':password' => $passwordPlain]);
 
@@ -65,6 +64,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="loginstyle.css">
+    <link rel="icon" href="assets/favicon-32x32.png" type="image/png">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
     <title>Bejelentkezés</title>
 </head>
