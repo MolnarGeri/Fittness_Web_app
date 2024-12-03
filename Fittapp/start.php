@@ -29,9 +29,10 @@ $userId = $_SESSION['user_id'];
         <div class="nav__bar">
           <div class="nav__logo"><a href="#">HealthMap</a></div>
           <ul class="nav__links">
-          <li class="link"><a href="start.php">Főoldal</a></li>
-                <li class="link"><a href="start.php">Rólunk</a></li>
+                <li class="link"><a href="start.php">Főoldal</a></li>
+                <li class="link"><a href="persondata.php">Adatlapom</a></li>
                 <li class="link"><a href="fooddiary.php">Étkezésnapló</a></li>
+                <li class="link"><a href="trainingdiary.php">Edzésnapló</a></li>
                 <li class="link"><a href="logout.php">Kijelentkezés</a></li>
                 <li class="link search">
               <span><i class='bx bxs-face'></i></span>
@@ -176,30 +177,28 @@ $userId = $_SESSION['user_id'];
       <div class="section__container footer__container">
         <h4>HealthMap</h4>
         <div class="footer__socials">
-          <span>
-            <a href="#"><i class="ri-facebook-fill"></i></a>
+        <span>
+            <a href="https://www.facebook.com/davidlaid/?locale=hu_HU"><i class="ri-facebook-fill"></i></a>
           </span>
           <span>
-            <a href="#"><i class="ri-instagram-fill"></i></a>
+            <a href="https://www.instagram.com/davidlaid/"><i class="ri-instagram-fill"></i></a>
           </span>
           <span>
-            <a href="#"><i class="ri-twitter-fill"></i></a>
+            <a href="https://x.com/david_laid"><i class="ri-twitter-fill"></i></a>
           </span>
           <span>
-            <a href="#"><i class="ri-linkedin-fill"></i></a>
+            <a href="https://www.linkedin.com/posts/gymshark_as-you-may-have-seen-we-recently-appointed-activity-7035970565953703936-V481"><i class="ri-linkedin-fill"></i></a>
           </span>
         </div>
         <p>
           HealtMap. Ébreszd fel a benned szunnyadó óriást és használd az erőt ami már most rendelkezésedre áll!
         </p>
         <ul class="footer__nav">
-          <li class="footer__link"><a href="#home">Főoldal</a></li>
-          <li class="footer__link"><a href="#about">Rólunk</a></li>
-          <li class="footer__link"><a href="#discover">Szolgáltatosok</a></li>
-          <li class="footer__link"><a href="#blog">Extra</a></li>
-          <li class="footer__link"><a href="#journals">Vélemények</a></li>
-          <li class="footer__link"><a href="#gallery">Galéria</a></li>
-          <li class="footer__link"><a href="#contact">Kapcsolat</a></li>
+                <li class="link"><a href="start.php">Főoldal</a></li>
+                <li class="link"><a href="persondata.php">Adatlapom</a></li>
+                <li class="link"><a href="fooddiary.php">Étkezésnapló</a></li>
+                <li class="link"><a href="trainingdiary.php">Edzésnapló</a></li>
+                <li class="link"><a href="logout.php">Kijelentkezés</a></li>
         </ul>
       </div>
       <div class="footer__bar">
