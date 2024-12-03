@@ -26,7 +26,7 @@ try {
                     $_SESSION["username"] = $user["username"];
                     $_SESSION["is_admin"]=$user["is_admin"];
                    if($_SESSION["is_admin"]==0){
-                    header("location: persondata.php");
+                    header("location: start.php");
                     }else{
                         header("location: admin.php");
                     }
@@ -66,45 +66,51 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="loginstyle.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
-    <title>Log in</title>
+    <title>Bejelentkezés</title>
 </head>
 <body>
+    <header>
+    <section class="hero">
+      <div class="section__container hero__container">
+        <p>HealthMap</p>
+      </div>
+    </section>
+    </header>
     <div class="wrapper">
         <span class="bg-animate"></span>
         <span class="bg-animate2"></span>
-
         <div class="form-box login">
-            <h2 class="animation" style="--i:0; --j:21;">Login</h2>
+            <h2 class="animation" style="--i:0; --j:21;">Bejelentkezés</h2>
             <?php if (isset($message)) echo '<label class="text-danger">' . $message . ' </label>'; ?>
             <form action="" method="POST">
                 <div class="input-box animation" style="--i:1; --j:22;">
                     <input type="text" name="username" required>
-                    <label>Username</label>
+                    <label>Felhasználónév</label>
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-box animation" style="--i:2; --j:23;">
                     <input type="password" name="password" required>
-                    <label>Password</label>
+                    <label>Jelszó</label>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
-                <button type="submit" class="btn animation" name="submit" style="--i:3; --j:24;">Login</button>
+                <button type="submit" class="btn animation" name="submit" style="--i:3; --j:24;">Bejelentkezés</button>
                 <div class="logreg-link animation" style="--i:4; --j:25;">
-                    <p>Don't have an account? <a href="#" class="register-link">Sign Up</a></p>
+                    <p>Nem rendelkezik még fiókkal? <a href="#" class="register-link">Regisztálj</a></p>
                 </div>
             </form>
         </div>
 
         <div class="info-text login">
-            <h2 class="animation" style="--i:0; --j:20;">Welcome Back!</h2>
-            <p class="animation" style="--i:1; --j:21;">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            <h2 class="animation" style="--i:0; --j:20;">HealtMap</h2>
+            <p class="animation" style="--i:1; --j:21;">Üdv újra! További tartalmakért kérjük, jelentkezzen be.</p>
         </div>
 
         <div class="form-box register">
-            <h2 class="animation" style="--i:17; --j:0;">Sign Up</h2>
+            <h2 class="animation" style="--i:17; --j:0;">Regisztálj</h2>
             <form action="" method="POST">
                 <div class="input-box animation" style="--i:18; --j:1;">
                     <input type="text" name="userName" required>
-                    <label>Username</label>
+                    <label>Felhasználónév</label>
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-box animation" style="--i:19; --j:2;">
@@ -114,19 +120,19 @@ try {
                 </div>
                 <div class="input-box animation" style="--i:20; --j:3;">
                     <input type="password" name="password" required>
-                    <label>Password</label>
+                    <label>Jelszó</label>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
-                <button type="submit" class="btn animation" style="--i:21; --j:4;">Sign Up</button>
+                <button type="submit" class="btn animation" style="--i:21; --j:4;">Regisztálj</button>
                 <div class="logreg-link animation" style="--i:22; --j:5;">
-                    <p>Already have an account? <a href="#" class="login-link">Login</a></p>
+                    <p>Rendelkezik már fiókkal? <a href="#" class="login-link">Bejelentkezés</a></p>
                 </div>
             </form>
         </div>
 
         <div class="info-text register">
-            <h2 class="animation" style="--i:17; --j:0;">Welcome Back!</h2>
-            <p class="animation" style="--i:18; --j:1;">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            <h2 class="animation" style="--i:17; --j:0;">HealtMap</h2>
+            <p class="animation" style="--i:18; --j:1;">Üdvözöljük! További tartalmakért kérjük, jelentkezzen be.</p>
         </div>
     </div>
 
