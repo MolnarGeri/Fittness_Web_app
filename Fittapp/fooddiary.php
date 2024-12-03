@@ -8,10 +8,10 @@ if (!isset($_SESSION['user_id'])) {
 
 $userId = $_SESSION['user_id'];
 
-// Adatbázis-kapcsolat beállítása
+
 $servername = "localhost";
-$username = "root";  // a saját felhasználóneved
-$password = "";      // a saját jelszavad
+$username = "root";  
+$password = "";      
 $dbname = "fitnessdb";
 
 try {
@@ -127,6 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_meal'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=fooddiarystyle.css>
     <title>Étkezésnapló</title>
     <style>
         table {
@@ -147,6 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_meal'])) {
     </style>
 </head>
 <body>
+    <div class= "etkezesnaplo">
     <h1>Étkezésnapló</h1>
     <p>Ma még ennyit ehetsz: <strong><?= $daily ?> kcal</strong></p>
 
@@ -156,8 +158,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_meal'])) {
         <input type="text" name="food_search">
         <button type="submit">Keresés</button>
     </form>
-
+    </div>
     <!-- Keresési találatok megjelenítése -->
+     <div class = "megjelenites">
     <?php if (!empty($foods)): ?>
         <table border="1" id="food_table">
             <tr>
@@ -178,8 +181,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_meal'])) {
             <?php endforeach; ?>
         </table>
     <?php endif; ?>
+            </div>
 
     <!-- Kiválasztott étel adatok és számítási mező -->
+     <div class = "szamitas">
     <form method="POST" id="food_form" style="<?= $selectedFood ? '' : 'display:none;' ?>">
         <input type="hidden" name="selected_food" id="selected_food" value="<?= htmlspecialchars(json_encode($selectedFood)) ?>">
         <input type="hidden" name="eated_calories" value="<?= $eatedCalories ?>">
@@ -192,9 +197,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_meal'])) {
         <button type="submit" name="calculate_calories">Kalória számítás</button>
         <button type="submit" name="eat_button">Megettem</button>
     </form>
-
+            </div>
     <!-- Kiszámolt értékek táblázata -->
-    <?php if ($eatedCalories > 0 && !$mealSaved): ?>
+    <div class = "ertekek">
+    <?php if ($eatedCalories > 0 && !$mealSaved): ?>  
         <h2>Kiszámolt értékek:</h2>
         <table border="1">
             <tr>
@@ -213,8 +219,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_meal'])) {
             </tr>
         </table>
     <?php endif; ?>
+    </div>
 
     <!-- Elfogyasztott ételek táblázat -->
+    <div class = "urlap">
     <h2>Elfogyasztott ételek:</h2>
     <table>
         <tr>
@@ -249,6 +257,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_meal'])) {
             </tr>
         <?php endif; ?>
     </table>
+        </div>
 
     <script>
         function selectFood(foodData) {
