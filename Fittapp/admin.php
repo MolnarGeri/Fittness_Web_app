@@ -7,7 +7,7 @@ if(empty($_SESSION["username"]) ){
 }
 //ha nincs admin jogosultsága akkor a pofiljára küldi
 if($_SESSION["is_admin"]==0){
-    header("location: start.php");
+    header("location: persondata.php");
     die("Nincs jogosultság a hozzáféréshez.");
 }
 
@@ -44,6 +44,40 @@ if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submTraining']) && !empty
     }
 }
 
+
+
+if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['submFood']) && !empty($pdo)){
+    $foodName=$_POST['foodName'];
+    $foodCalories=$_POST['foodCalories'];
+    $foodCarb=$_POST['foodCarb'];
+    $foodProtein=$_POST['foodProtein'];
+    $foodFat=$_POST['foodFat'];
+    try{
+        $foodCalories=floatval($foodCalories);
+        $foodCarb=floatval($foodCarb);
+        $foodProtein=floatval($foodProtein);
+        $foodFat=floatval($foodFat);
+
+        echo "<p>$foodCalories</p>";
+        echo "<p>$foodCarb</p>";
+        $sqlFood='INSERT INTO foodtbl (mealname, calories, carb, protein, fat) VALUES(:mealname,:calories,:carb,:protein,:fat)';
+        $queryFood=$pdo->prepare($sqlFood);
+        $queryFood->bindValue(':mealname',$foodName,PDO::PARAM_STR);
+        $queryFood->bindValue(':calories',$foodCalories,PDO::PARAM_STR);
+        $queryFood->bindValue(':carb',$foodCarb,PDO::PARAM_STR);
+        $queryFood->bindValue(':protein',$foodProtein,PDO::PARAM_STR);
+        $queryFood->bindValue(':fat',$foodFat,PDO::PARAM_STR);
+        $queryFood->execute();
+
+
+
+    }catch(PDOException $ex){
+        $error="Adatbéisu hiba történt:".$ex->getMessage();
+        //die();
+    }
+
+}
+
 ?>
 
 
@@ -54,7 +88,6 @@ if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submTraining']) && !empty
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="adminstyle.css">
     <title>Document</title>
 </head>
 <body>
@@ -82,9 +115,30 @@ if(!empty($error)){
 </fieldset>
 </form>
 
-<div class="kijelentkezes-container">
-  <a href="logout.php?logout">Kijelentkezés</a>
-</div>
+
+
+
+<h1>Étel felvitel</h1>
+
+<form action="<?=htmlspecialchars(trim($_SERVER['PHP_SELF']))?>" method="post">
+    <fieldset> Étel felvitel
+        <label for="foodName">Név</label>
+        <input type="text" name="foodName" id="foodName">
+        <label for="foodCalories">Kalória</label>
+        <input type="number" step="0.01" name="foodCalories" id="foodCalories">
+        <label for="foodCarb">Carb</label>
+        <input type="number" step="0.01" name="foodCarb" id="foodCarb">
+        <label for="foodProtein">Protein</label>
+        <input type="number" step="0.01" name="foodProtein" id="foodProtein">
+        <label for="foodFat">Zsír</label>
+        <input type="number" step="0.01" name="foodFat" id="foodFat">
+
+        <input type="submit" value="Mentés" name="submFood">
+
+    </fieldset>
+</form>
+
+<p><a href="logout.php?logout">Kijelentkezés</a></p>
     
 </body>
 </html>
