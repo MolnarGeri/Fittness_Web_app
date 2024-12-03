@@ -49,6 +49,18 @@ nav {
     gap: 2rem;
 }
 
+.link a {
+    padding: 1.5rem 5px;
+    font-weight: 500;
+    color: var(--white);
+    transition: 0.3s;
+  }
+  
+  .link a:hover {
+    color: var(--secondary-color);
+    border-bottom: 2px solid var(--secondary-color);
+  }
+
 .adatlap {
     background-color: rgba(0, 0, 0, 0, 5);
     border: 1px solid var(#f49e09);
