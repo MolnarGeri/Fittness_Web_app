@@ -21,7 +21,7 @@ try {
                 $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 
                 // Jelszó ellenőrzése hashelés nélkül
-                if ($user && $_POST['password'] === $user['password']) {
+                if ($user &&  password_verify($_POST['password'],$user['password'])  /*$_POST['password'] === $user['password']*/) {
                     $_SESSION["user_id"] = $user["id"];
                     $_SESSION["username"] = $user["username"];
                     $_SESSION["is_admin"]=$user["is_admin"];
@@ -41,7 +41,7 @@ try {
         elseif (isset($_POST['userName'], $_POST['email'], $_POST['password'])) {
             $userName = $_POST['userName'];
             $email = $_POST['email'];
-            $passwordPlain = $_POST['password']; // Jelszó mentése sima szövegként
+            $passwordPlain = password_hash( $_POST['password'],PASSWORD_DEFAULT); // Jelszó mentése sima szövegként
 
             $stmt = $connDB->prepare("INSERT INTO user (userName, email, password) VALUES (:userName, :email, :password)");
             $stmt->execute([':userName' => $userName, ':email' => $email, ':password' => $passwordPlain]);
